@@ -1,0 +1,36 @@
+import react from "@vitejs/plugin-react";
+import externalGlobals from "rollup-plugin-external-globals";
+import { defineConfig } from "vite";
+
+// https://vitejs.dev/config/
+export default defineConfig(({ command }) => {
+  return {
+    define: {
+      "process.env": "{}",
+      "process.env.NODE_ENV": JSON.stringify(
+        command === "build" ? "production" : "development",
+      ),
+    },
+    build: {
+      lib: {
+        entry: "src/main.tsx",
+        fileName: "index",
+        formats: ["es"],
+      },
+      rollupOptions: {
+        external: ["react", "react-dom", "react-dom/client", "valtio"],
+      },
+    },
+    plugins: [
+      react({
+        jsxRuntime: "classic",
+      }),
+      externalGlobals({
+        react: "React",
+        "react-dom": "ReactDOM",
+        "react-dom/client": "ReactDOM",
+        valtio: "Valtio",
+      }),
+    ],
+  };
+});

@@ -1,0 +1,26 @@
+{
+  "name": "orca-music-player",
+  "version": "1.0.0",
+  "description": "虎鲸笔记音乐播放器插件：支持网易云音乐、哔哩哔哩与YouTube音乐播放、歌单管理、顺序/随机播放与后台伴播",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "valtio": "^1.13.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^6.1.2",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "rollup-plugin-external-globals": "^0.9.2",
+    "typescript": "^7.0.2",
+    "valtio": "^2.3.2",
+    "vite": "^8.2.1"
+  }
+}
