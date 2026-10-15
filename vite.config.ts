@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import externalGlobals from "rollup-plugin-external-globals";
 import { defineConfig } from "vite";
+import { cpSync, mkdirSync } from "node:fs";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -31,6 +32,13 @@ export default defineConfig(({ command }) => {
         "react-dom/client": "ReactDOM",
         valtio: "Valtio",
       }),
+      {
+        name: "copy-css",
+        closeBundle() {
+          mkdirSync("dist", { recursive: true });
+          cpSync("src/styles/player.css", "dist/index.css");
+        },
+      },
     ],
   };
 });

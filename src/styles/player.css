@@ -1,18 +1,20 @@
+/* 1. 常驻右下角胶囊播放条 */
 .omp-floating-bar {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  height: 40px;
-  max-width: 280px;
+  height: 42px;
+  min-width: 180px;
+  max-width: 320px;
   background: var(--orca-color-bg-secondary, #1e1e24);
   border: 1px solid var(--orca-color-border, #3a3a44);
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border-radius: 21px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 12px;
-  z-index: 9999;
+  gap: 10px;
+  padding: 0 14px;
+  z-index: 999999;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
@@ -20,9 +22,10 @@
 .omp-floating-bar:hover {
   border-color: var(--orca-color-primary, #3b82f6);
   transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 .omp-disc {
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +38,8 @@
   to { transform: rotate(360deg); }
 }
 .omp-floating-title {
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--orca-color-text, #eee);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -43,22 +47,28 @@
   flex: 1;
 }
 
+/* 2. 展开的播放器控制面板 */
 .omp-panel-container {
   position: fixed;
-  bottom: 24px;
+  bottom: 76px;
   right: 24px;
-  width: 320px;
+  width: 380px;
   background: var(--orca-color-bg-secondary, #1e1e24);
   border: 1px solid var(--orca-color-border, #3a3a44);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
-  z-index: 9999;
+  gap: 12px;
+  padding: 14px;
+  z-index: 999999;
   font-family: inherit;
   color: var(--orca-color-text, #eee);
+  animation: omp-fade-in 0.2s ease-out;
+}
+@keyframes omp-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .omp-header {
@@ -66,14 +76,14 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--orca-color-border, #3a3a44);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 .omp-header__info {
   flex: 1;
   overflow: hidden;
 }
 .omp-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,6 +92,7 @@
 .omp-meta {
   font-size: 11px;
   color: var(--orca-color-text-muted, #8b8e9b);
+  margin-top: 2px;
 }
 
 .omp-controls {
@@ -89,6 +100,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .omp-btn {
@@ -96,10 +108,11 @@
   border: 1px solid var(--orca-color-border, #3a3a44);
   color: var(--orca-color-text, #eee);
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: 5px 10px;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
+  user-select: none;
 }
 .omp-btn:hover {
   border-color: var(--orca-color-primary, #3b82f6);
@@ -116,38 +129,21 @@
   color: #fff;
 }
 .omp-btn--sm {
-  padding: 2px 6px;
-  font-size: 11px;
+  padding: 3px 8px;
+  font-size: 12px;
 }
 .omp-btn--icon {
-  padding: 2px 8px;
-  font-weight: bold;
+  padding: 3px 8px;
+  font-size: 13px;
+  color: var(--orca-color-text-muted, #8b8e9b);
 }
-
-.omp-viewport {
-  width: 100%;
-  height: 80px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #000;
-}
-.omp-viewport iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-.omp-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: var(--orca-color-text-muted, #666);
+.omp-btn--icon:hover {
+  color: #ff5c5c;
+  border-color: #ff5c5c;
 }
 
 .omp-playlist {
-  max-height: 160px;
+  max-height: 200px;
   overflow-y: auto;
   border: 1px solid var(--orca-color-border, #3a3a44);
   border-radius: 6px;
@@ -157,10 +153,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
+  padding: 8px 12px;
   font-size: 12px;
   cursor: pointer;
   border-bottom: 1px solid var(--orca-color-border, #2a2a32);
+  transition: background 0.15s ease;
 }
 .omp-playlist__item:last-child {
   border-bottom: none;
@@ -186,8 +183,26 @@
   text-transform: uppercase;
 }
 .omp-empty {
-  padding: 12px;
+  padding: 16px;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--orca-color-text-muted, #8b8e9b);
+}
+
+/* 3. 后台独立音频 iframe 容器（微型发声锚点，不占视觉但享有全功能发声权） */
+.omp-viewport-host {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 80px;
+  opacity: 0.01;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.omp-viewport-host iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
